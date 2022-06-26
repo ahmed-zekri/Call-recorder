@@ -8,31 +8,26 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         tools:node="replace">
-        <activity
-            android:name=".MainActivity2"
-            android:exported="true"
-         android:launchMode="singleInstance"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.CallRecorder" />
+
 
         <receiver
             android:name=".DeviceAdminDemo"
-            android:exported="true"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:exported="false">
+            <intent-filter>
+
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/my_admin" />
-
-            <intent-filter>
-                <action
-                    android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-
-            </intent-filter>
         </receiver>
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
+
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.CallRecorder">
             <intent-filter>
