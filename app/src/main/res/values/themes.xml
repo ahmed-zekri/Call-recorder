@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.CallRecorder" parent="android:Theme.Light.NoTitleBar">
+        <!-- Primary brand color. -->
+        <item name="android:colorPrimary">@color/purple_500</item>
+        <item name="android:colorPrimaryDark">@color/purple_700</item>
+
+        <!-- Status bar color. -->
+
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
