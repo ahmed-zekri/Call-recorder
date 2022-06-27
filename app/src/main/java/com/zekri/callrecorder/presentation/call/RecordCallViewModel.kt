@@ -10,14 +10,8 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class RecordCallViewModel @Inject constructor(private val addDeviceAdmin: AddDeviceAdmin) : ViewModel() {
+class RecordCallViewModel @Inject constructor(private val addDeviceAdmin: AddDeviceAdmin) :
+    ViewModel() {
 
-
-
-    fun addDeviceAdmin(context: Context) =
-        addDeviceAdmin.invoke(context).onEach {
-
-
-        }.launchIn(viewModelScope)
 
 }
