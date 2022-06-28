@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.telephony.TelephonyManager
 import android.widget.Toast
+import com.zekri.callrecorder.common.ACTION_IN
+import com.zekri.callrecorder.common.ACTION_OUT
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -23,8 +25,7 @@ class CallBackground : BroadcastReceiver() {
     private var recordStarted = false
     private lateinit var recorder: MediaRecorder
     lateinit var audiofile: File
-    private val ACTION_IN = "android.intent.action.PHONE_STATE"
-    private val ACTION_OUT = "android.intent.action.NEW_OUTGOING_CALL"
+
     override fun onReceive(context: Context, intent: Intent) {
         // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
         if (intent.action.equals(ACTION_IN)) {
@@ -37,7 +38,7 @@ class CallBackground : BroadcastReceiver() {
                 } else if (state == TelephonyManager.EXTRA_STATE_OFFHOOK) {
                     if (wasRinging) {
                         Toast.makeText(context, "ANSWERED", Toast.LENGTH_LONG).show()
-                        val out: String = SimpleDateFormat("dd-MM-yyyy hh-mm-ss").format(Date())
+                        SimpleDateFormat("dd-MM-yyyy hh-mm-ss").format(Date())
                         val sampleDir =
                             File(Environment.getExternalStorageDirectory(), "/TestRecordingDasa1")
                         if (!sampleDir.exists()) {
