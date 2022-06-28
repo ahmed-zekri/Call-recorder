@@ -6,7 +6,7 @@ import android.content.Intent
 import android.widget.Toast
 
 
-class DeviceAdminDemo : DeviceAdminReceiver() {
+class DeviceAdminAdd : DeviceAdminReceiver() {
     private fun showToast(context: Context, msg: String) {
 
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

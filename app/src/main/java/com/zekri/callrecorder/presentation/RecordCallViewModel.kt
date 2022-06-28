@@ -1,4 +1,4 @@
-package com.zekri.callrecorder.presentation.call
+package com.zekri.callrecorder.presentation
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
