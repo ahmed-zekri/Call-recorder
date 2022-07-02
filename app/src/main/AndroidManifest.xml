@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zekri.callrecorder">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -16,12 +17,12 @@
         tools:node="replace">
         <receiver
 
-            android:name=".presentation.CallBackground"
+            android:name=".presentation.broadcast_receivers.PhoneCallReceiverImpl"
             android:enabled="true" />
 
         <service
 
-            android:name=".presentation.CallService"
+            android:name=".presentation.services.CallService"
             android:enabled="true" />
 
         <receiver
