@@ -21,17 +21,23 @@ dependencyResolutionManagement {
     versionCatalogs {
         libs {
 
-            alias('core-ktx').to("androidx.core:core-ktx:${CORE_KTX_VERSION}")
+
             alias('compose-ui').to("androidx.compose.ui:ui:${COMPOSE_VERSION}")
             alias('compose-material').to("androidx.compose.material:material:${COMPOSE_VERSION}")
             alias('compose-tooling').to("androidx.compose.ui:ui-tooling-preview:${COMPOSE_VERSION}")
-
+            alias('coil-compose').to("io.coil-kt:coil-compose:$COIL_COMPOSE_VERSION")
             alias('compose-activity').to("androidx.activity:activity-compose:${ACTIVITY_COMPOSE_VERSION}")
+            alias("compose-ui").to("androidx.compose.ui:ui:$COMPOSE_VERSION")
+
+
+            alias("compose-tooling").to("androidx.compose.ui:ui-tooling-preview:$COMPOSE_VERSION")
+
+
             alias('hilt-android').to("com.google.dagger:hilt-android:$HILT_VERSION")
             alias('hilt-compiler').to("com.google.dagger:hilt-compiler:$HILT_VERSION")
 //            alias('junit').to("junit:junit:$JUNIT_VERSION")
             alias('hilt-navigation-compose').to("androidx.hilt:hilt-navigation-compose:$HILT_NAVIGATION_COMPOSE_VERSION")
-            alias('coil-compose').to("io.coil-kt:coil-compose:$COIL_COMPOSE_VERSION")
+
             alias('gson').to("com.google.code.gson:gson:$GSON_VERSION")
 
             alias('paging-runtime').to("androidx.paging:paging-runtime:$paging_version")
@@ -54,6 +60,9 @@ dependencyResolutionManagement {
             alias("hilt-android-compiler").to("com.google.dagger:hilt-android-compiler:$hilt_android_testing")
             alias("junit-ktx").to("androidx.test.ext:junit-ktx:$junit_ktx")
             alias("test-runner").to("androidx.test:runner:$runner_version")
+
+
+            alias("lifecycle-runtime").to("androidx.lifecycle:lifecycle-runtime-ktx:$COMPOSE_VERSION")
 
 
         }

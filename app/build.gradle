@@ -53,10 +53,10 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.compose.activity)
     implementation(libs.compose.ui)
-    implementation(libs.core.ktx)
+
     implementation(libs.compose.tooling)
     implementation(libs.hilt.android)
-    implementation (libs.test.runner)
+    implementation(libs.test.runner)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.gson)
@@ -67,27 +67,27 @@ dependencies {
     implementation(libs.paging.compose)
     implementation(libs.accompanist)
     implementation(libs.font.awesome.compose)
-    implementation (libs.hilt.android.testing)
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    implementation(libs.hilt.android.testing)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material)
+    implementation(libs.compose.tooling)
+    implementation(libs.lifecycle.runtime)
+
+
 
 
     kapt(libs.hilt.compiler)
 
 
-
+/*
     androidTestImplementation(libs.hilt.android)
-    androidTestImplementation (libs.junit.ktx)
-    androidTestImplementation (libs.mockito.core)
-    androidTestImplementation (libs.mockito.kotlin)
-    androidTestImplementation (libs.mockk)
-    androidTestImplementation (libs.truth)
-    androidTestImplementation (libs.hilt.android.testing)
-    kaptAndroidTest (libs.hilt.android.compiler)
+    androidTestImplementation(libs.junit.ktx)
+    androidTestImplementation(libs.mockito.core)
+    androidTestImplementation(libs.mockito.kotlin)
+    androidTestImplementation(libs.mockk)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+*/
+
 }

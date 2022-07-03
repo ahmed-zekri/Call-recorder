@@ -13,13 +13,16 @@ import com.zekri.callrecorder.presentation.broadcast_receivers.PhoneCallReceiver
 class CallService : Service() {
 
 
+    private var receiver: PhoneCallReceiverImpl? = null
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("StartService", packageName.javaClass.name)
         val filter = IntentFilter().apply {
             addAction(ACTION_OUT)
             addAction(ACTION_IN)
         }
-        this.registerReceiver(PhoneCallReceiverImpl(), filter)
+        receiver = PhoneCallReceiverImpl()
+        this.registerReceiver(receiver, filter)
         return super.onStartCommand(intent, flags, startId)
 
     }
@@ -28,5 +31,18 @@ class CallService : Service() {
         return null
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        receiver?.apply {
+            try {
+                this@CallService.unregisterReceiver(this)
+            } catch (e: Exception) {
+            }
+
+        }
+        receiver = null
+
+    }
 
 }

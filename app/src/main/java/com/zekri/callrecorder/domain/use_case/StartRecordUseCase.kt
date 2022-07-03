@@ -33,12 +33,13 @@ class StartRecordUseCase @Inject constructor(private val errorHandler: ErrorHand
         }
         try {
             recorder.prepare()
+            recorder.start()
         } catch (e: Exception) {
             errorHandler.getError(exception = e)
             emit(Resources.Error(e.message ?: ""))
             return@flow
         }
-        recorder.start()
+
 
         emit(Resources.Success(recorder))
 

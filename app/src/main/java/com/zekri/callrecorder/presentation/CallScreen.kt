@@ -5,6 +5,9 @@ import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
@@ -21,27 +24,66 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.test.core.app.ApplicationProvider
 import com.zekri.callrecorder.DeviceAdminAdd
+import com.zekri.callrecorder.common.checkStoragePermission
 import com.zekri.callrecorder.presentation.services.CallService
 
+fun launchService(context: Context) {
+    val intent = Intent(context, CallService::class.java)
+    context.startService(intent)
+}
 
 @Composable
 fun CallScreen(recordCallViewModel: RecordCallViewModel = viewModel()) {
     val context = LocalContext.current
     val snackBarState = remember { mutableStateOf(false) }
-    fun launchService() {
-        val intent = Intent(context, CallService::class.java)
-        context.startService(intent)
+    val launcherStorage =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK)
+                launchService(context = context)
+            else
+                snackBarState.value = true
+
+        }
+
+    fun checkStorage(context: Context) {
+
+        context.run {
+            if (!checkStoragePermission()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+
+                    Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+                        addCategory("android.intent.category.DEFAULT")
+                        data =
+                            Uri.parse(
+                                String.format(
+                                    "package:%s",
+                              applicationContext.packageName
+                                )
+                            )
+                        launcherStorage.launch(this)
+
+                    }
+
+            } else launchService(context)
+
+        }
     }
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK)
-                launchService()
+                checkStorage(context)
             else
                 snackBarState.value = true
 
         }
+
+
+
+
+
 
 
     LaunchedEffect(key1 = true) {
@@ -61,7 +103,7 @@ fun CallScreen(recordCallViewModel: RecordCallViewModel = viewModel()) {
 
 
         } else
-            launchService()
+            checkStorage(context)
     }
     Box(modifier = Modifier.fillMaxSize()) {
 

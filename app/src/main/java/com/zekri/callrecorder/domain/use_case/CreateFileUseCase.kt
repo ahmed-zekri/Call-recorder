@@ -12,7 +12,7 @@ class CreateFileUseCase @Inject constructor(private val errorHandler: ErrorHandl
 
 
     operator fun invoke(dirName: String, fileName: String) = flow {
-        val dir = File(Environment.getExternalStorageDirectory(), "/$dirName")
+        val dir = File(Environment.getExternalStoragePublicDirectory(""), "/$dirName")
         var audioFile: File?
         dir.apply {
 

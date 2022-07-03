@@ -6,16 +6,14 @@ import android.util.Log
 import android.widget.Toast
 import com.zekri.callrecorder.common.Resources
 import com.zekri.callrecorder.domain.use_case.RecordUseCases
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class PhoneCallReceiverImpl : PhoneCallReceiver() {
@@ -29,58 +27,10 @@ class PhoneCallReceiverImpl : PhoneCallReceiver() {
 
     }
 
-    private fun recordCall(ctx: Context?, number: String?) {
-        val scope = CoroutineScope(Dispatchers.IO)
-        ctx?.apply {
-            recordUseCases.createFileUseCase("records", number ?: "number").onEach {
-                when (it) {
-
-                    is Resources.Success ->
-                        it.data?.run {
-                            recordUseCases.startRecordUseCase(this@apply, this).onEach { result ->
-                                when (result) {
-                                    is Resources.Success -> {
-                                        Toast.makeText(
-                                            ctx,
-                                            "Record started",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        recorder = result.data
-
-
-                                    }
-                                    is Resources.Error -> Toast.makeText(
-                                        this@apply,
-                                        it.error,
-                                        Toast.LENGTH_SHORT
-                                    )
-                                        .show()
-                                    is Resources.Loading -> TODO()
-                                }
-
-                            }.launchIn(scope)
-                        }
-                    is Resources.Error ->
-                        Toast.makeText(
-                        this@apply,
-                        it.error,
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                    is Resources.Loading -> {
-
-                    }
-                }
-
-            }
-                .launchIn(scope)
-
-        }
-    }
-
 
     override fun onIncomingCallAnswered(ctx: Context?, number: String?, start: Date?) {
         Log.d("onIncomingCallAnswered", "$number $start")
+        recordCall(ctx, number)
     }
 
     override fun onIncomingCallEnded(
@@ -90,7 +40,9 @@ class PhoneCallReceiverImpl : PhoneCallReceiver() {
         end: Date?
     ) {
         Log.d("onIncomingCallEnded", "$number $start\t$end")
+        stopRecord()
     }
+
 
     override fun onOutgoingCallStarted(ctx: Context?, number: String?, start: Date?) {
         Log.d("onOutgoingCallStarted", "$number $start")
@@ -103,11 +55,65 @@ class PhoneCallReceiverImpl : PhoneCallReceiver() {
         start: Date?,
         end: Date?
     ) {
-        Log.d("onOutgoingCallEnded", "$number $start\t$end")
+        stopRecord()
+
     }
 
     override fun onMissedCall(ctx: Context?, number: String?, start: Date?) {
         Log.d("onMissedCall", "$number $start")
 
+    }
+
+    private fun stopRecord() {
+        recorder?.apply {
+            recordUseCases.stopRecordUseCase(this)
+            recorder = null
+        }
+    }
+
+    private fun recordCall(ctx: Context?, number: String?) {
+        val scope = CoroutineScope(Dispatchers.IO)
+        ctx?.apply {
+
+
+            recordUseCases.createFileUseCase("records", number ?: "number").onEach {
+                when (it) {
+
+                    is Resources.Success ->
+                        it.data?.run {
+                            recordUseCases.startRecordUseCase(this@apply, this)
+                                .onEach { result ->
+                                    when (result) {
+                                        is Resources.Success ->
+
+
+                                            recorder = result.data
+
+
+                                        is Resources.Error -> {
+                                        }
+                                        is Resources.Loading -> {
+
+                                        }
+                                    }
+
+                                }.launchIn(scope)
+                        }
+                    is Resources.Error ->
+                        Toast.makeText(
+                            this@apply,
+                            it.error,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    is Resources.Loading -> {
+
+                    }
+                }
+
+            }
+                .launchIn(scope)
+
+        }
     }
 }
