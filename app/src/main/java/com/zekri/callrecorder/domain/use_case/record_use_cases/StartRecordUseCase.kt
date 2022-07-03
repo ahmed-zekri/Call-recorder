@@ -1,4 +1,4 @@
-package com.zekri.callrecorder.domain.use_case
+package com.zekri.callrecorder.domain.use_case.record_use_cases
 
 import android.content.Context
 import android.media.MediaRecorder
@@ -28,6 +28,7 @@ class StartRecordUseCase @Inject constructor(private val errorHandler: ErrorHand
             setOutputFormat(MediaRecorder.OutputFormat.AMR_NB)
             setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
             setOutputFile(file.absolutePath)
+
 
 
         }

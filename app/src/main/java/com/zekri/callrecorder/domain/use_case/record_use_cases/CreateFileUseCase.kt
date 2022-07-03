@@ -1,4 +1,4 @@
-package com.zekri.callrecorder.domain.use_case
+package com.zekri.callrecorder.domain.use_case.record_use_cases
 
 import android.os.Environment
 import com.zekri.callrecorder.common.Resources

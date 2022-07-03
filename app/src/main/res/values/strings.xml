@@ -7,4 +7,6 @@
     <string name="admin_receiver_status_pw_changed">admin_receiver_status_pw_changed</string>
     <string name="admin_receiver_status">admin receiver status</string>
     <string name="title_activity_main2">MainActivity2</string>
+    <string name="channel_name">Record call notif</string>
+    <string name="channel_description">Report thhe state of the notification</string>
 </resources>

@@ -1,10 +1,10 @@
 package com.zekri.callrecorder.data.di
 
 import com.zekri.callrecorder.domain.ErrorHandler
-import com.zekri.callrecorder.domain.use_case.CreateFileUseCase
-import com.zekri.callrecorder.domain.use_case.RecordUseCases
-import com.zekri.callrecorder.domain.use_case.StartRecordUseCase
-import com.zekri.callrecorder.domain.use_case.StopRecordUseCase
+import com.zekri.callrecorder.domain.use_case.record_use_cases.CreateFileUseCase
+import com.zekri.callrecorder.domain.use_case.record_use_cases.RecordUseCases
+import com.zekri.callrecorder.domain.use_case.record_use_cases.StartRecordUseCase
+import com.zekri.callrecorder.domain.use_case.record_use_cases.StopRecordUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
